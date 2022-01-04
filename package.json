@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "''"
+    "serve": "nodemon app",
+    "servedev": "code .|wt split-pane -d ./|nodemon app",
+    "start": "node app"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/litfa/mcserver-status-node/issues"
   },
-  "homepage": "https://github.com/litfa/mcserver-status-node#readme"
+  "homepage": "https://github.com/litfa/mcserver-status-node#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "eslint": "^8.6.0",
+    "express": "^4.17.2"
+  }
 }
