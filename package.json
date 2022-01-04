@@ -1,0 +1,19 @@
+{
+  "name": "server-status-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "''"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litfa/mcserver-status-node.git"
+  },
+  "author": "litfa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/litfa/mcserver-status-node/issues"
+  },
+  "homepage": "https://github.com/litfa/mcserver-status-node#readme"
+}
