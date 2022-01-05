@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "serve": "nodemon app",
-    "servedev": "code .|wt split-pane -d ./|nodemon app",
+    "serve": "nodemon -e js,mjs app",
+    "servedev": "code .|wt split-pane -d ./|nodemon -e js,mjs app",
     "start": "node app"
   },
   "repository": {
