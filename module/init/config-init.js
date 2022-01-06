@@ -1,4 +1,4 @@
-module.exports = () => {
+module.exports = `module.exports = () => {
   return {
     // 监听端口
     port: 3000,
@@ -24,6 +24,7 @@ module.exports = () => {
     }],
 
     // 间隔表达式（定时查询服务器状态）
+    // 获取状态使用第三方api （module/get-server-info-api.js）,请勿设置过高的频率
     // * 0 */5 * * * * 为 10 分钟执行一次
     // 若不会填写，可前往 https://cron.qqe2.com/ 在线生成
     //     *    *    *    *    *    *
@@ -42,4 +43,4 @@ module.exports = () => {
     // 设置为 -1 时 保留所有数据
     storeDataNum: 50
   }
-}
+}`
