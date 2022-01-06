@@ -15,8 +15,9 @@ pnpm-debug.log*
 
 # other
 node_modules
+serverLog
+log.json
 dist
 logs
 config.js
 *test*
-serverLog/*
