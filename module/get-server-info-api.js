@@ -2,7 +2,7 @@
  * @Author: litfa 
  * @Date: 2022-01-05 17:01:53 
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-05 19:52:33
+ * @Last Modified time: 2022-01-06 01:30:41
  */
 const axios = require('axios')
 
@@ -50,6 +50,7 @@ const getServerStatus = async (type, ip, port) => {
     }
     res = res.data
     return {
+      code: 200,
       type: 'je',
       status: res.online,
       motd: res.motd,
