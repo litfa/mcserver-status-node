@@ -21,3 +21,7 @@ dist
 logs
 config.js
 *test*
+*.bak
+
+# pkg
+server-status-node-*

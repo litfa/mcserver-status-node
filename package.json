@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "nodemon -e js,mjs app",
     "servedev": "code .|wt split-pane -d ./|nodemon -e js,mjs app",
-    "start": "node app"
+    "start": "node app",
+    "build": "pkg package.json"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,12 @@
   },
   "devDependencies": {
     "eslint": "^8.6.0"
+  },
+  "bin": "app.js",
+  "pkg": {
+    "assets": [
+      "dist/**/*",
+      "modules/**/*"
+    ]
   }
 }
