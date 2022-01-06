@@ -19,3 +19,4 @@ dist
 logs
 config.js
 *test*
+serverLog/*
