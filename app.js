@@ -2,9 +2,10 @@
  * @Author: litfa 
  * @Date: 2022-01-05 17:01:56 
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 23:58:36
+ * @Last Modified time: 2022-01-07 00:50:00
  */
 const fs = require('fs')
+const path = require('path')
 // log
 global.logger = {}
 require('./module/log')
@@ -31,7 +32,7 @@ if (!fs.existsSync('./serverLog/log.json')) {
 
 const express = require('express')
 
-global.CONFIG = require('./config.js')()
+global.CONFIG = require(path.join(process.cwd(), './config.js'))()
 
 // 开启定时任务
 logger.info('开启定时任务')
@@ -42,7 +43,7 @@ const app = express()
 
 app.use('/api/getStatus', require('./router/getStatus.js'))
 app.use('/api/getStatusLog', require('./router/getStatusLog'))
-app.use('/', express.static('./dist/'))
+app.use('/', express.static(path.join(__dirname, './dist/')))
 
 app.listen(CONFIG.port, () => {
   logger.info(`监听端口 ${CONFIG.port}`)

@@ -8,7 +8,8 @@ module.exports = {
   globals: {
     __dirname: 'writeable',
     logger: 'readonly',
-    CONFIG: 'readonly'
+    CONFIG: 'readonly',
+    process: 'readonly'
   },
   parserOptions: {
     parser: 'babel-eslint',

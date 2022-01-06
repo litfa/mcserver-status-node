@@ -2,14 +2,14 @@
  * @Author: litfa 
  * @Date: 2022-01-05 17:01:51 
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 23:40:29
+ * @Last Modified time: 2022-01-07 00:34:44
  */
 const schedule = require('node-schedule')
 const getAllServersStatus = require('./getAllServersStatus')
 const fs = require('fs')
 const path = require('path')
 
-let dataLogFilePath = path.join(__dirname, '../serverLog/log.json')
+let dataLogFilePath = path.join(process.cwd(), './serverLog/log.json')
 schedule.scheduleJob(CONFIG.schedule, async () => {
   logger.info('开始获取数据')
   let data = await getAllServersStatus({ favicon: false })
