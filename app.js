@@ -2,7 +2,7 @@
  * @Author: litfa 
  * @Date: 2022-01-05 17:01:56 
  * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 23:46:38
+ * @Last Modified time: 2022-01-06 23:58:36
  */
 const fs = require('fs')
 // log
@@ -20,6 +20,13 @@ if (!fs.existsSync('./config.js')) {
   }
   logger.info('配置文件生成成功')
   logger.warning('请将配置文件修改为自己的服务器，并重启该应用(config.js)')
+}
+
+if (!fs.existsSync('./serverLog/log.json')) {
+  logger.info('未检测到日志文件，将自动生成')
+  if (!fs.existsSync('./serverLog/')) fs.mkdirSync('./serverLog')
+  fs.writeFileSync('./serverLog/log.json', '[]')
+  logger.info('日志文件生成成功')
 }
 
 const express = require('express')
