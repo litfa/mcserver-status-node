@@ -9,7 +9,8 @@ module.exports = {
     __dirname: 'writeable',
     logger: 'readonly',
     CONFIG: 'readonly',
-    process: 'readonly'
+    process: 'readonly',
+    cache: 'readonly'
   },
   parserOptions: {
     parser: 'babel-eslint',
