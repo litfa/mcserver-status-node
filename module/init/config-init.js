@@ -43,6 +43,8 @@ module.exports = `module.exports = () => {
     // 设置为 -1 时 保留所有数据
     storeDataNum: 50,
     // 实时数据
-    viewNewData: true
+    viewNewData: true,
+    // 实时数据缓存时间（毫秒） (6000为60秒)
+    catchTime: 60000
   }
 }`
