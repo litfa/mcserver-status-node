@@ -41,6 +41,8 @@ module.exports = `module.exports = () => {
     viewDataNum: 20,
     // 保留的数据数量（多余的将被删除）
     // 设置为 -1 时 保留所有数据
-    storeDataNum: 50
+    storeDataNum: 50,
+    // 实时数据
+    viewNewData: true
   }
 }`

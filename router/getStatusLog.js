@@ -16,7 +16,11 @@ router.use(async (req, res) => {
   let sliceNum = data.length - CONFIG.viewDataNum
   data = sliceNum < 0 ? data : data.slice(sliceNum)
 
-  res.send({ code: 200, data: data })
+  res.send({
+    code: 200,
+    data: data,
+    viewNewData: CONFIG.viewNewData || false
+  })
 })
 
 module.exports = router
