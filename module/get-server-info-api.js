@@ -1,68 +1,60 @@
-/*
- * @Author: litfa 
- * @Date: 2022-01-05 17:01:53 
- * @Last Modified by: litfa
- * @Last Modified time: 2022-01-06 01:30:41
+/**
+ * @Author: litfa
+ * @Date: 2022-01-05 17:01:53
+ * @LastEditTime: 2022-02-10 15:58:03
+ * @LastEditors: litfa
+ * @Description: 获取状态
+ * @FilePath: /mcserver-status-node/module/get-server-info-api.js
+ * @
  */
-const axios = require('axios')
+const { statusBedrock, status } = require('minecraft-server-util')
+
+let beOption = {
+  enableSRV: false
+}
+let jeOption = {
+  enableSRV: true // SRV record lookup
+}
 
 const getServerStatus = async (type, ip, port) => {
   if (type == 'be') {
-    let res = {}
     try {
-      res = await axios({
-        method: 'GET',
-        url: 'https://motdbe.blackbe.xyz/api',
-        params: {
-          host: `${ip}:${port}`
-        }
-      })
+      let res = await statusBedrock(ip, port || 19132, beOption)
+      console.log('beend')
+      return {
+        code: 200,
+        type: 'be',
+        status: true,
+        motd: res.motd.clean,
+        max: res.players.max,
+        online: res.players.online,
+        version: res.version.name,
+        // 协议版本
+        agreement: res.version.protocol
+      }
     } catch (e) {
-      return { code: e.response.status }
-    }
-    res = res.data
-    return {
-      code: 200,
-      type: 'be',
-      status: res.online,
-      status: res.status,
-      motd: res.motd,
-      max: res.max,
-      online: res.online,
-      version: res.version,
-      // 协议版本
-      agreement: res.agreement
+      console.log(e)
+      return { code: 200, status: false }
+
     }
   } else if (type == 'je') {
-    let res = {}
     try {
-      res = await axios({
-        method: 'GET',
-        url: 'https://mcapi.us/server/status',
-        params: {
-          ip: ip,
-          port: port
-        }
-      })
+      let res = await status(ip, port || 25565, jeOption)
+      return {
+        code: 200,
+        type: 'je',
+        status: true,
+        motd: res.motd.clean,
+        max: res.players.max,
+        online: res.players.online,
+        // 玩家列表
+        sample: res.players.sample,
+        version: res.version.name,
+        // 协议版本
+        agreement: res.version.protocol
+      }
     } catch (e) {
-      // console.log(e);
-      return { code: e.response.status }
-    }
-    res = res.data
-    return {
-      code: 200,
-      type: 'je',
-      status: res.online,
-      motd: res.motd,
-      // 图标
-      favicon: res.favicon,
-      max: res.players.max,
-      online: res.players.now,
-      // 玩家列表
-      sample: res.players.sample,
-      version: res.server.name,
-      // 协议版本
-      agreement: res.server.protocol
+      return { code: 200, status: false }
     }
   }
 }
