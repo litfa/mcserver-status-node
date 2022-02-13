@@ -1,7 +1,7 @@
 /**
  * @Author: litfa
  * @Date: 2022-01-05 17:01:53
- * @LastEditTime: 2022-02-10 15:58:03
+ * @LastEditTime: 2022-02-13 13:00:28
  * @LastEditors: litfa
  * @Description: 获取状态
  * @FilePath: /mcserver-status-node/module/get-server-info-api.js
@@ -16,7 +16,7 @@ let jeOption = {
   enableSRV: true // SRV record lookup
 }
 
-const getServerStatus = async (type, ip, port) => {
+const getServerStatus = async (type, ip, port, name, id) => {
   if (type == 'be') {
     try {
       let res = await statusBedrock(ip, port || 19132, beOption)
@@ -30,11 +30,12 @@ const getServerStatus = async (type, ip, port) => {
         online: res.players.online,
         version: res.version.name,
         // 协议版本
-        agreement: res.version.protocol
+        agreement: res.version.protocol,
+        name, id
       }
     } catch (e) {
-      console.log(e)
-      return { code: 200, status: false }
+      logger.warning(`${name} id:${id} ${ip}:${port} 获取失败`)
+      return { code: 200, status: false, name, id }
 
     }
   } else if (type == 'je') {
@@ -51,10 +52,13 @@ const getServerStatus = async (type, ip, port) => {
         sample: res.players.sample,
         version: res.version.name,
         // 协议版本
-        agreement: res.version.protocol
+        agreement: res.version.protocol,
+        name,
+        id
       }
     } catch (e) {
-      return { code: 200, status: false }
+      logger.warning(`${name} id:${id} ${ip}:${port} 获取失败`)
+      return { code: 200, status: false, name, id }
     }
   }
 }
