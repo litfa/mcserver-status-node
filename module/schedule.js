@@ -1,8 +1,11 @@
-/*
- * @Author: litfa 
- * @Date: 2022-01-05 17:01:51 
- * @Last Modified by: litfa
- * @Last Modified time: 2022-01-07 00:34:44
+/**
+ * @Author: litfa
+ * @Date: 2022-02-10 11:42:49
+ * @LastEditTime: 2022-02-13 15:34:54
+ * @LastEditors: litfa
+ * @Description: 定时获取
+ * @FilePath: /mcserver-status-node/module/schedule.js
+ * @
  */
 const schedule = require('node-schedule')
 const getAllServersStatus = require('./getAllServersStatus')

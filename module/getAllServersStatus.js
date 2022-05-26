@@ -1,7 +1,7 @@
 /**
  * @Author: litfa
  * @Date:  2022-01-05 17:42:18
- * @LastEditTime: 2022-02-13 13:00:58
+ * @LastEditTime: 2022-02-13 15:34:56
  * @LastEditors: litfa
  * @Description: 获取所有服务器状态
  * @FilePath: /mcserver-status-node/module/getAllServersStatus.js
@@ -21,6 +21,6 @@ module.exports = async () => {
       values[i].date = Date.now()
       data.push(values[i])
     }
-    return data
   })
+  return data
 }
