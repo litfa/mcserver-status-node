@@ -12,6 +12,7 @@ select
 from status
 where date > date_sub(now(), interval ? hour)
 order by date desc
+limit 36
 `
 
 // 6h 24h 7d 30d
