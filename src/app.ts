@@ -3,8 +3,11 @@ import config from './utils/config'
 import { logger } from './utils/log'
 import './service/crontab'
 import router from './router'
+import cors from 'cors'
 
 const app = express()
+
+app.use(cors())
 
 app.use(config.baseUrl, router)
 
