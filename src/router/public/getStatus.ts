@@ -63,7 +63,7 @@ router.post('/7d', async (req, res) => {
       and
       id=?
   group by date_format(date, '%Y-%m-%d')
-  order by date desc
+  order by date
   `
   const [err, request] = await query(sql, id)
   if (err) return res.send({ code: 500 })
