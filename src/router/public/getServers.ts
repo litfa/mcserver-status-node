@@ -3,7 +3,18 @@ import { query } from '../../utils/db'
 
 const router = Router()
 
-const sql = 'select * from servers where type=? or type=?'
+const sql = `
+select
+    servers.*,
+    servers.type,
+    max(status.online) as max_online,
+    avg(status.online) as online
+from servers
+left join status on status.id = servers.id
+where
+    servers.type=? or servers.type=?
+group by servers.id
+`
 router.post('/:type', async (req, res) => {
   const type = req.params.type
   let err, request
