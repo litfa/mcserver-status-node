@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { query } from '../../utils/db'
+import { getBeStatus, getJeStatus } from '../../minecraft/getServerStatus'
 
 const router = Router()
 
@@ -68,6 +69,25 @@ router.post('/7d', async (req, res) => {
   const [err, request] = await query(sql, id)
   if (err) return res.send({ code: 500 })
   res.send({ code: 200, data: request })
+})
+
+router.post('/now', async (req, res) => {
+  const id = req.body.id
+  const sql = 'select host, port, type from servers where id=?'
+  const [err, request] = await query(sql, id)
+  if (err) {
+    return res.send({ status: 500 })
+  }
+  if (request.length === 0) {
+    return res.send({ status: 403, msg: '服务器不存在' })
+  }
+  let status
+  if (request[0].type === 'je') {
+    status = await getJeStatus(request[0].host, request[0].port)
+  } else if (request[0].type === 'be') {
+    status = await getBeStatus(request[0].host, request[0].port)
+  }
+  res.send({ status: 200, data: { ...status, date: new Date() } })
 })
 
 export default router
