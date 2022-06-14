@@ -1,6 +1,10 @@
 import { statusBedrock, status } from 'minecraft-server-util'
 import { logger } from '../utils/log'
 
+/**
+ * 基岩版没有延迟
+ * java版没有游戏模式
+ */
 const getBeStatus = async (ip: string, port = 19132) => {
   try {
     const res = await statusBedrock(ip, port, {
@@ -10,11 +14,13 @@ const getBeStatus = async (ip: string, port = 19132) => {
       code: 200,
       status: true,
       motd: res.motd.clean,
+      motdHtml: res.motd.html,
       max: res.players.max,
       online: res.players.online,
       version: res.version.name,
       // 协议版本
-      agreement: res.version.protocol
+      agreement: res.version.protocol,
+      gameMode: res.gameMode
       // name,
       // id
     }
@@ -33,13 +39,16 @@ const getJeStatus = async (ip: string, port = 25565) => {
       code: 200,
       status: true,
       motd: res.motd.clean,
+      motdHtml: res.motd.html,
       max: res.players.max,
       online: res.players.online,
       // 玩家列表
       sample: res.players.sample,
       version: res.version.name,
       // 协议版本
-      agreement: res.version.protocol
+      agreement: res.version.protocol,
+      // 延迟
+      roundTripLatency: res.roundTripLatency
     }
   } catch (e) {
     logger.warn(`${ip}:${port} 获取失败`)
