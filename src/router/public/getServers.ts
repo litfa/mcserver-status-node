@@ -8,7 +8,8 @@ select
     servers.*,
     servers.type,
     max(status.online) as max_online,
-    avg(status.online) as online
+    avg(status.online) as online,
+    if(servers.type = 'be', status.version, null) as version
 from servers
 left join status on status.id = servers.id
 where
