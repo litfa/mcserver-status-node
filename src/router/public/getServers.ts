@@ -5,13 +5,25 @@ const router = Router()
 
 const sql = `
 select
-    servers.*,
-    servers.type,
-    max(status.online) as max_online,
-    avg(status.online) as online,
-    if(servers.type = 'be', status.version, null) as version
+  servers.*,
+  servers.type,
+  status.online,
+  status.max_online,
+  if(servers.type = 'be', status.version, null) as version
 from servers
-left join status on status.id = servers.id
+left join (
+  select
+    # 峰值
+    max(online) as max_online,
+    # 平均
+    avg(online) as online,
+    version,
+    id
+  from status
+  where
+    date > date_sub(now(), interval 7 day)
+  group by id
+) status on status.id = servers.id
 where
     servers.type=? or servers.type=?
 group by servers.id
