@@ -99,9 +99,8 @@ router.post('/now', async (req, res) => {
   }
   res.send({
     status: 200,
-    data: { ...status, date: new Date() },
     // @ts-ignore
-    offset: res.offset || 0
+    data: { ...status, date: new Date(), offset: res.offset || 0 }
   })
 })
 
