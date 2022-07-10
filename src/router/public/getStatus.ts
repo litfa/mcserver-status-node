@@ -22,11 +22,18 @@ limit 144
 `
 
 // 验证id参数
-router.post('/*', (req, res, next) => {
+router.post('/*', async (req, res, next) => {
   const id = req.body.id
   if (id === undefined || typeof id != 'number') {
     return res.send({ code: 403, msg: '参数有误' })
   }
+
+  const [err, offset] = await query('select offset from servers where id=?', id)
+  if (err) return res.send({ code: 500 })
+
+  // @ts-ignore
+  res.offset = offset[0]?.offset || 0
+
   next()
 })
 
@@ -35,14 +42,16 @@ router.post('/6h', async (req, res) => {
   const id = req.body.id
   const [err, request] = await query(sql, [6, id])
   if (err) return res.send({ code: 500 })
-  res.send({ code: 200, data: request })
+  // @ts-ignore
+  res.send({ code: 200, data: request, offset: res.offset || 0 })
 })
 
 router.post('/24h', async (req, res) => {
   const id = req.body.id
   const [err, request] = await query(sql, [24, id])
   if (err) return res.send({ code: 500 })
-  res.send({ code: 200, data: request })
+  // @ts-ignore
+  res.send({ code: 200, data: request, offset: res.offset || 0 })
 })
 
 // 展示近七天 最高人数 平均人数 可用率
@@ -68,7 +77,8 @@ router.post('/7d', async (req, res) => {
   `
   const [err, request] = await query(sql, id)
   if (err) return res.send({ code: 500 })
-  res.send({ code: 200, data: request })
+  // @ts-ignore
+  res.send({ code: 200, data: request, offset: res.offset || 0 })
 })
 
 router.post('/now', async (req, res) => {
@@ -87,7 +97,12 @@ router.post('/now', async (req, res) => {
   } else if (request[0].type === 'be') {
     status = await getBeStatus(request[0].host, request[0].port)
   }
-  res.send({ status: 200, data: { ...status, date: new Date() } })
+  res.send({
+    status: 200,
+    data: { ...status, date: new Date() },
+    // @ts-ignore
+    offset: res.offset || 0
+  })
 })
 
 export default router
